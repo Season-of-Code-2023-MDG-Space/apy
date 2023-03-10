@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+
+<body>
+    <h1>Welcome to Profile Page</h1>
+    <h2 id="name">Your Full Name is:</h2>
+    <form>
+       <label for="labelName"> Label Name:</label>
+        <input type="text" name="labelName" id="labelName">
+    </form>
+    <br>
+    <button onclick="authenticate().then(loadClient).then(execute)">Submit</button>
+    <!-- <br><button onclick="logout()">Logout</button> -->
+    
+</body>
+
+<script src="profile.js">
+    
+        
+</script>
+<!-- <script src="https://apis.google.com/js/platform.js"></script> -->
+<script src="https://apis.google.com/js/api.js"></script>
+<script>
+    /**
+     * Sample JavaScript code for gmail.users.settings.filters.create
+     * See instructions for running APIs Explorer code samples locally:
+     * https://developers.google.com/explorer-help/code-samples#javascript
+     */
+  
+    function authenticate() {
+      return gapi.auth2.getAuthInstance()
+          .signIn({scope: "https://www.googleapis.com/auth/gmail.settings.basic"})
+          .then(function() { console.log("Sign-in successful"); },
+                function(err) { console.error("Error signing in", err); });
+    }
+    function loadClient() {
+      gapi.client.setApiKey("AIzaSyAHPuqC8jQ_C_P-CiILaVN-cKscFV1op9A");
+      return gapi.client.load("https://gmail.googleapis.com/$discovery/rest?version=v1")
+          .then(function() { console.log("GAPI client loaded for API"); },
+                function(err) { console.error("Error loading GAPI client for API", err); });
+    }
+    // Make sure the client is loaded and sign-in is complete before calling this method.
+    function execute() {
+        var labelName= document.getElementById("labelName").value;
+     console.log(labelName);
+        return gapi.client.gmail.users.labels.create({
+          "userId": "me",
+          "resource": {
+            "labelListVisibility": "labelShow",
+            "messageListVisibility": "show",
+            "name": labelName
+          }
+        })
+            .then(function(response) {
+                    // Handle the results here (response.result has the parsed body).
+                    console.log("Response", response);
+                  },
+                  function(err) { console.error("Execute error", err); });
+      }
+      gapi.load("client:auth2", function() {
+        gapi.auth2.init({client_id: "515563093963-1omo7q3tsigg54mqvoqeoqpcsa8v6p7p.apps.googleusercontent.com"});
+      });
+  </script>
