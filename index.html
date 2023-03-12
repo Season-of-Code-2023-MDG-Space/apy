@@ -1,85 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-signin-client_id" content="515563093963-1omo7q3tsigg54mqvoqeoqpcsa8v6p7p.apps.googleusercontent.com">
-    <title>Document</title>
-    
+  <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoad()"></script>
+  <script async defer src="https://accounts.google.com/gsi/client" onload="gisInit()"></script>
 </head>
-
 <body>
-    <h1>Welcome to Profile Page</h1>
-    <!-- <h2 id="name">Your Full Name is:</h2> -->
-    <!-- <form>
-        Word Group 1:{yha per words}
-       <label for="labelName"> Label Name:</label>
-        <input type="text" name="labelName" id="labelName">
-        <br>
-        Word Group 1:{yha per words}
-        
-       <label for="labelName2"> Label Name:</label>
-        <input type="text" name="labelName2" id="labelName2">
-    </form>
+  <h1>GAPI with GIS callbacks</h1>
+  <form>
+   <label for="labelName"> Label Name:</label>
+    <input type="text" name="labelName" id="labelName">
     <br>
-    <button onclick="authenticate().then(loadClient).then(execute)">Submit</button>
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-     <br><button onclick="logout()">Logout</button> 
-     -->
-</body>
-
-<!-- <script src="profile.js">
+    <label for="word"> Word:</label>
+    <input type="text" name="word" id="word">
     
-        
-</script> -->
-<!-- <script src="https://apis.google.com/js/platform.js"></script> -->
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-<script src="https://apis.google.com/js/api.js"></script>
-<script>
-  /**
-   * Sample JavaScript code for gmail.users.settings.filters.create
-   * See instructions for running APIs Explorer code samples locally:
-   * https://developers.google.com/explorer-help/code-samples#javascript
-   */
+</form>
+  <button id="submit" onclick="submit();">Submit</button><br><br>
+ 
+  <script src="profile.js">
 
-  function authenticate() {
-    return gapi.auth2.getAuthInstance()
-        .signIn({scope: "https://www.googleapis.com/auth/gmail.settings.basic"})
-        .then(function() { console.log("Sign-in successful"); },
-              function(err) { console.error("Error signing in", err); });
-  }
-  function loadClient() {
-    gapi.client.setApiKey("AIzaSyAHPuqC8jQ_C_P-CiILaVN-cKscFV1op9A");
-    return gapi.client.load("https://gmail.googleapis.com/$discovery/rest?version=v1")
-        .then(function() { console.log("GAPI client loaded for API"); },
-              function(err) { console.error("Error loading GAPI client for API", err); });
-  }
-  // Make sure the client is loaded and sign-in is complete before calling this method.
-  function execute() {
-    return gapi.client.gmail.users.settings.filters.create({
-      "userId": "kingtheevils@gmail.com",
-      "resource": {
-        "action": {
-          "addLabelIds": [
-            "Label_1"
-          ]
-        },
-        "criteria": {
-          "query": "test"
-        }
-      }
-    })
-        .then(function(response) {
-                // Handle the results here (response.result has the parsed body).
-                console.log("Response", response);
-              },
-              function(err) { console.error("Execute error", err); });
-  }
-  gapi.load("client:auth2", function() {
-    gapi.auth2.init({client_id: "515563093963-1omo7q3tsigg54mqvoqeoqpcsa8v6p7p.apps.googleusercontent.com"});
-  });
-</script>
-<button onclick="authenticate().then(loadClient)">authorize and load</button>
-<button onclick="execute()">execute</button>
+  </script>
+</body>
+</html>

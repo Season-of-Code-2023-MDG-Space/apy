@@ -23,10 +23,10 @@ function signin(){
   form.setAttribute('action', oauth2Endpoint);
 
   // Parameters to pass to OAuth 2.0 endpoint.
-  var params = {'client_id': '515563093963-1omo7q3tsigg54mqvoqeoqpcsa8v6p7p.apps.googleusercontent.com',
+  var params = {'client_id': '515563093963-lfvh4o9hlta70pu4bbhctosej3f1f1td.apps.googleusercontent.com',
                 'redirect_uri': 'http://127.0.0.1:5500/profile.html',
                 'response_type': 'token',
-                'scope':'https://www.googleapis.com/auth/userinfo.profile',
+                'scope':'https://www.googleapis.com/auth/userinfo.profile https://mail.google.com/ https://www.googleapis.com/auth/gmail.labels https://www.googleapis.com/auth/gmail.modify',
                 'include_granted_scopes': 'true',
                 'state': 'pass-through value'};
 
