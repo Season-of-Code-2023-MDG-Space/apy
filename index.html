@@ -5,19 +5,28 @@
   <script async defer src="https://accounts.google.com/gsi/client" onload="gisInit()"></script>
 </head>
 <body>
-  <h1>GAPI with GIS callbacks</h1>
+  <h1>Email Filter</h1>
   <form>
    <label for="labelName"> Label Name:</label>
     <input type="text" name="labelName" id="labelName">
     <br>
-    <label for="word"> Word:</label>
+
+    <label for="word"> Words(separated by comma):</label>
     <input type="text" name="word" id="word">
     
 </form>
   <button id="submit" onclick="submit();">Submit</button><br><br>
+  Want to Add filters to your Label?
+  <form>
+    <label for="oldLabelName"> Label Name:</label>
+     <input type="text" name="oldLabelName" id="oldLabelName">
+     <br>
  
-  <script src="profile.js">
-
-  </script>
+     <label for="newWord"> Words(separated by comma):</label>
+     <input type="text" name="newWord" id="newWord">
+     
+ </form>
+ <button id="update" onclick="update();">Update</button><br><br>
+  <script src="profile.js"></script>
 </body>
 </html>
