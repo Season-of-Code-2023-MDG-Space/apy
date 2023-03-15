@@ -2,7 +2,7 @@ let tokenClient;
 let gapiInited;
 let gisInited;
 
-document.getElementById("submit").style.visibility="hidden";
+// document.getElementById("submit").style.visibility="hidden";
 
 
 function checkBeforeStart() {
@@ -81,13 +81,14 @@ function submit() {
                                       }
                                     }
                                   }).then(function() {
-                                                                          // Handle the results here (response.result has the parsed body).
-                                                                          console.log("sumcess");
-                                                                          document.getElementById("labelName").value="";
-                                                                          document.getElementById("word").value="";
-                                                                        },
-                                                                        function(err) { console.error("Execute error", err); });
+                                    // Handle the results here (response.result has the parsed body).
+                                    console.log("sumcess");
+                                    
+                                },
+                                function(err) { console.error("Execute error", err); });
                             }
+                            document.getElementById("labelName").value="";
+                            document.getElementById("word").value="";
                               },
                               function(err) { console.error("Execute error", err); });
                      
@@ -113,6 +114,71 @@ function submit() {
   }
   
 }
+function update() {
+
+    tokenClient.callback = (resp) => {
+      if (resp.error !== undefined) {
+        throw(resp);
+      }
+      // GIS has automatically updated gapi.client with the newly issued access token.
+      console.log('gapi.client access token: ' + JSON.stringify(gapi.client.getToken()));
+          var oldLabelName = document.getElementById("oldLabelName").value ;
+          var wordArray = document.getElementById("newWord").value.split(",");
+          gapi.client.gmail.users.labels.list({
+            "userId": "me"
+          })
+              .then(function(response) {
+                 for(let i=0;i<response.result.labels.length;i++){
+                     if(response.result.labels[i].name.toLowerCase()==oldLabelName.toLowerCase()){
+                        console.log(response.result.labels[i].name);
+                        var labelId=(response.result.labels[i].id);}
+                   }
+                   for(let i=0;i<wordArray.length;i++){
+
+                     console.log(wordArray[i],wordArray.length);
+                     gapi.client.gmail.users.settings.filters.create({
+                         "userId": "me",
+                         "resource": {
+                           "action": {
+                             "addLabelIds": [
+                                 labelId
+                             ]
+                           },
+                           "criteria": {
+                             "query": wordArray[i]
+                           }
+                         }
+                       }).then(function() {
+                         // Handle the results here (response.result has the parsed body).
+                         console.log("sumcess");
+                         
+                     },
+                     function(err) { console.error("Execute error", err); });
+                 }
+                 document.getElementById("oldLabelName").value="";
+                 document.getElementById("newWord").value="";
+                   },
+                   function(err) { console.error("Execute error", err); });
+                  
+  
+      
+    }
+  
+    
+  
+    // Conditionally ask users to select the Google Account they'd like to use,
+    // and explicitly obtain their consent to fetch their Gmail.
+    // NOTE: To request an access token a user gesture is necessary.
+    if (gapi.client.getToken() === null) {
+      // Prompt the user to select a Google Account and asked for consent to share their data
+      // when establishing a new session.
+      tokenClient.requestAccessToken({prompt: 'consent'});
+    } else {
+      // Skip display of account chooser and consent dialog for an existing session.
+      tokenClient.requestAccessToken({prompt: ''});
+    }
+    
+  }
 //following snippet will be useful while logging out.
 function revokeToken() {
     
