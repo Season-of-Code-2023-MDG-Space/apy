@@ -1,23 +1,95 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
   <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoad()"></script>
   <script async defer src="https://accounts.google.com/gsi/client" onload="gisInit()"></script>
 </head>
+<style>
+  body{
+    background-color: bisque;
+  }
+  h1{
+    color:white;
+    text-align: center;
+    text-shadow: 5px;
+    font-size: 40px;
+    background-color: rgb(148, 106, 68);
+  }
+ form{
+   font-size: 20px;
+   font-weight: 100;
+   font-family: serif;
+   text-align:center;
+   
+ }
+ div.c{
+  text-align:center;
+  padding: auto;
+  }
+  div.d{
+  text-align:center;
+  padding: auto;
+  }
+  .button{
+    background-color: rgb(147, 106, 55);
+    border: black;
+    color:white;
+    padding: 8px 15px;
+    text-align: center;
+    display:inline-flexbox;
+    font-size:15px;
+    cursor: pointer;
+    border-radius:12px;
+  }
+  input[type=text]{
+    margin-right: auto;
+    border-radius:5px;
+    background-color: rgba(35, 36, 37, 0.334);
+    font-size:15px;
+  }
+  div.a{
+    text-indent:8.5%;
+  }
+  div.b{
+    text-indent:8.5%;
+  }
+
+</style>
 <body>
-  <h1>GAPI with GIS callbacks</h1>
+  <h1 >Email Filter</h1>
+  <p style="font-size: 22px;text-align: center;font-family:serif;text-decoration: underline;">To create label name</p>
+
   <form>
-   <label for="labelName"> Label Name:</label>
+    <div class="a">
+   <label  for="labelName"> Label Name:</label>
     <input type="text" name="labelName" id="labelName">
     <br>
-    <label for="word"> Word:</label>
-    <input type="text" name="word" id="word">
+    </div>
+    
+    <label for="word"> Words(separated by comma):</label>
+    <input type="text" name="word" id="word"><br>
     
 </form>
-  <button id="submit" onclick="submit();">Submit</button><br><br>
- 
-  <script src="profile.js">
+<div><br></div>
+<div class="c">
+  <button class="button" id="submit" onclick="submit();" >Submit</button><br><br>
+ </div>
+ <p style="font-size: 22px;text-align: center;font-weight:500px;font-family:serif;text-decoration: underline;"> Want to Add filters to your Label?</p>
 
-  </script>
+  <form>
+    <div class="b">
+    <label for="oldLabelName"> Label Name:</label>
+     <input type="text" name="oldLabelName" id="oldLabelName">
+     <br>
+    </div> 
+     <label for="newWord"> Words(separated by comma):</label>
+     <input type="text" name="newWord" id="newWord"><br>
+     
+ </form>
+ <div><br></div>
+ <div class="d">
+ <button class="button" id="update" onclick="update();">Update</button><br><br>
+  <script src="profile.js"></script>
+ </div>
 </body>
 </html>

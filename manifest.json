@@ -1,0 +1,20 @@
+{
+    "manifest_version": 3,
+  
+    "name": "Email Filter",
+    "description": "Filter your emails to labels and words that you provide.",
+    "version": "0.1",
+  
+    "action": {
+      "default_title": "Email Filter",
+      "default_popup": "popup.html"
+    },
+    "permissions": [
+      "activeTab"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    
+    }
+    
+}
